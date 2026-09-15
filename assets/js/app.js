@@ -1,11 +1,11 @@
-// Ally Shop (Aylle Shop) - Main E-Commerce Application Logic
+// Aylle Shop - Main E-Commerce Application Logic
 document.addEventListener("DOMContentLoaded", () => {
-  const initialProducts = JSON.parse(localStorage.getItem("ally_products")) || PRODUCTS_DATA;
+  const initialProducts = JSON.parse(localStorage.getItem("aylle_products") || localStorage.getItem("ally_products")) || PRODUCTS_DATA;
   let state = {
     products: initialProducts,
     filteredProducts: initialProducts,
-    cart: JSON.parse(localStorage.getItem("ally_cart")) || [],
-    wishlist: JSON.parse(localStorage.getItem("ally_wishlist")) || [],
+    cart: JSON.parse(localStorage.getItem("aylle_cart") || localStorage.getItem("ally_cart")) || [],
+    wishlist: JSON.parse(localStorage.getItem("aylle_wishlist") || localStorage.getItem("ally_wishlist")) || [],
     appliedCoupon: null,
     discountAmount: 0,
     currentCategory: "all",
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const WHATSAPP_PHONE = "923148604291"; // 03148604291 formatted for WhatsApp API
-  const STORE_EMAIL = "allyshopoffical@gmail.com";
+  const STORE_EMAIL = "aylleshopofficial@gmail.com";
   const FREE_SHIPPING_THRESHOLD = 2999;
   const STANDARD_SHIPPING_FEE = 200;
 
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveCart() {
-    localStorage.setItem("ally_cart", JSON.stringify(state.cart));
+    localStorage.setItem("aylle_cart", JSON.stringify(state.cart));
   }
 
   function updateCartUI() {
@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCartUI();
       showToast(`🎉 Coupon <strong>${code}</strong> applied! You got ${coupon.discountPercent}% OFF.`);
     } else {
-      showToast("Invalid discount code. Try ALLY10 for 10% off!");
+      showToast("Invalid discount code. Try AYLLE10 for 10% off!");
     }
   }
 
@@ -373,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE;
     const grandTotal = Math.max(0, subtotal - state.discountAmount + shipping);
 
-    let msg = `🌸 *NEW ORDER - ALLY SHOP (AYLLE SHOP)* 🌸\n`;
+    let msg = `🌸 *NEW ORDER - AYLLE SHOP* 🌸\n`;
     msg += `----------------------------------------\n`;
     
     if (customerInfo) {
@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const orderId = `ALLY-${Math.floor(100000 + Math.random() * 900000)}`;
+    const orderId = `AYLLE-${Math.floor(100000 + Math.random() * 900000)}`;
     const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE;
     const grandTotal = Math.max(0, subtotal - state.discountAmount + shipping);
@@ -484,7 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const customerInfo = { name, phone, city, address, notes, paymentMethod, orderId, grandTotal };
 
     // Save recent order
-    const orderHistory = JSON.parse(localStorage.getItem("ally_orders") || "[]");
+    const orderHistory = JSON.parse(localStorage.getItem("aylle_orders") || localStorage.getItem("ally_orders") || "[]");
     orderHistory.push({
       orderId,
       date: new Date().toLocaleDateString(),
@@ -492,7 +492,7 @@ document.addEventListener("DOMContentLoaded", () => {
       customer: customerInfo,
       total: grandTotal
     });
-    localStorage.setItem("ally_orders", JSON.stringify(orderHistory));
+    localStorage.setItem("aylle_orders", JSON.stringify(orderHistory));
 
     // Clear Cart
     state.cart = [];
@@ -531,7 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
       showToast(`Added <strong>${product.name}</strong> to your Wishlist! ❤️`);
     }
 
-    localStorage.setItem("ally_wishlist", JSON.stringify(state.wishlist));
+    localStorage.setItem("aylle_wishlist", JSON.stringify(state.wishlist));
     updateWishlistUI();
     renderProducts();
   }
@@ -676,7 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     document.getElementById("modalBuyWhatsAppBtn").onclick = () => {
-      const msg = `Hello Ally Shop! I want to order:\nProduct: ${product.name}\nShade: ${state.selectedShadeForModal}\nQty: ${modalQty}\nPrice: Rs. ${(product.price * modalQty).toLocaleString()}`;
+      const msg = `Hello Aylle Shop! I want to order:\nProduct: ${product.name}\nShade: ${state.selectedShadeForModal}\nQty: ${modalQty}\nPrice: Rs. ${(product.price * modalQty).toLocaleString()}`;
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
     };
 

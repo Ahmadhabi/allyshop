@@ -1,7 +1,7 @@
-// Ally Shop - Cosmetic Products Catalog Database
+// Aylle Shop - Cosmetic Products Catalog Database
 const PRODUCTS_DATA = [
   {
-    id: "ally-01",
+    id: "aylle-01",
     name: "Velvet Matte Liquid Lipstick",
     category: "lips",
     price: 1450,
@@ -24,7 +24,7 @@ const PRODUCTS_DATA = [
     features: ["16-Hour Transfer Proof", "Enriched with Vitamin E", "100% Smudge Resistant", "Cruelty-Free"]
   },
   {
-    id: "ally-02",
+    id: "aylle-02",
     name: "Sunset Romance 18-Shade Eyeshadow Palette",
     category: "eyes",
     price: 2850,
@@ -44,7 +44,7 @@ const PRODUCTS_DATA = [
     features: ["Ultra-Blendable Formula", "Waterproof & Crease-Resistant", "High Color Payoff", "Mirror Included"]
   },
   {
-    id: "ally-03",
+    id: "aylle-03",
     name: "Luminous Silk 24H Liquid Foundation",
     category: "face",
     price: 2650,
@@ -67,7 +67,7 @@ const PRODUCTS_DATA = [
     features: ["24-Hour Hydrating Glow", "SPF 25 Sun Protection", "Oil-Free & Non-Comedogenic", "Sweat-Resistant"]
   },
   {
-    id: "ally-04",
+    id: "aylle-04",
     name: "24K Gold Radiant Primer & Serum",
     category: "skincare",
     price: 1950,
@@ -87,7 +87,7 @@ const PRODUCTS_DATA = [
     features: ["Instant Pore Blurring", "Deep 48H Hydration", "Preps & Extends Makeup", "Anti-Aging Peptides"]
   },
   {
-    id: "ally-05",
+    id: "aylle-05",
     name: "10-Piece Luxury Makeup Brush Set & Pouch",
     category: "brushes-kits",
     price: 3200,
@@ -108,7 +108,7 @@ const PRODUCTS_DATA = [
     features: ["Dense Fluffy Bristles", "Shed-Free Guarantee", "Includes Velvet Travel Bag", "Easy to Clean"]
   },
   {
-    id: "ally-06",
+    id: "aylle-06",
     name: "Aylle Signature Eau De Parfum (100ml)",
     category: "perfumes",
     price: 3950,
@@ -128,7 +128,7 @@ const PRODUCTS_DATA = [
     features: ["Long-Lasting 18+ Hours", "French Perfume Oils", "Luxury Glass Crystal Bottle", "Gift Ready Packaging"]
   },
   {
-    id: "ally-07",
+    id: "aylle-07",
     name: "Baked Starlight Highlighter & Glow Powder",
     category: "face",
     price: 1650,
@@ -150,7 +150,7 @@ const PRODUCTS_DATA = [
     features: ["Silky Baked Texture", "Blinding Multi-Dimensional Glow", "Zero Chunky Glitter", "All Day Wear"]
   },
   {
-    id: "ally-08",
+    id: "aylle-08",
     name: "Dramatic 3D Volume & Curl Mascara",
     category: "eyes",
     price: 1350,
@@ -171,7 +171,7 @@ const PRODUCTS_DATA = [
     features: ["10x Instant Lash Volume", "100% Smudge & Tear Proof", "Ophthalmologist Tested", "Easy Removal"]
   },
   {
-    id: "ally-09",
+    id: "aylle-09",
     name: "Plumping Crystal Gloss & Lip Oil",
     category: "lips",
     price: 1250,
@@ -193,7 +193,7 @@ const PRODUCTS_DATA = [
     features: ["Instant Plumping Effect", "Non-Sticky Glaze Formula", "Deep Nourishing Oils", "High Mirror Shine"]
   },
   {
-    id: "ally-10",
+    id: "aylle-10",
     name: "Petal Soft Velvet Powder Blush Trio",
     category: "face",
     price: 1750,
@@ -215,7 +215,7 @@ const PRODUCTS_DATA = [
     features: ["Buildable Color Intensity", "Silky Micronized Powder", "Soft Focus Blurring", "Long Wearing"]
   },
   {
-    id: "ally-11",
+    id: "aylle-11",
     name: "Precision Waterproof Gel Eyeliner Pen",
     category: "eyes",
     price: 950,
@@ -236,7 +236,7 @@ const PRODUCTS_DATA = [
     features: ["0.1mm Ultra Fine Tip", "24H Waterproof & Sweatproof", "Fade-Proof Ink Flow", "Quick 3-Sec Dry"]
   },
   {
-    id: "ally-12",
+    id: "aylle-12",
     name: "Hydra-Mist Rose Glow Setting Spray",
     category: "skincare",
     price: 1550,
@@ -256,7 +256,7 @@ const PRODUCTS_DATA = [
     features: ["Continuous Micro-Mist Spray", "16H Makeup Lock", "Refreshes & Hydrates", "Anti-Pollution Shield"]
   },
   {
-    id: "ally-13",
+    id: "aylle-13",
     name: "Bridal Glam All-In-One Makeup Master Kit",
     category: "brushes-kits",
     price: 7999,
@@ -276,7 +276,7 @@ const PRODUCTS_DATA = [
     features: ["Complete 7-Piece Full Size Kit", "Save 30% on Bundle", "Free Luxury Gift Box", "Guaranteed 100% Authentic"]
   },
   {
-    id: "ally-14",
+    id: "aylle-14",
     name: "Melt & Glow Cleansing Balm & Makeup Remover",
     category: "skincare",
     price: 1850,
@@ -296,7 +296,7 @@ const PRODUCTS_DATA = [
     features: ["Melts Stubborn Waterproof Makeup", "Leaves Skin Nourished & Soft", "No Greasy Residue", "Free of Mineral Oils"]
   },
   {
-    id: "ally-15",
+    id: "aylle-15",
     name: "Sculpt & Tame 36H Micro Brow Pomade & Spoolie",
     category: "eyes",
     price: 1150,
@@ -318,7 +318,7 @@ const PRODUCTS_DATA = [
     features: ["Dual-Ended with Angled Brush", "Waterproof 36H Hold", "Buildable Natural Definition", "No Flaking or Smudge"]
   },
   {
-    id: "ally-16",
+    id: "aylle-16",
     name: "Rose Gold Velvet Shimmer Body & Hair Mist",
     category: "perfumes",
     price: 2150,
@@ -341,6 +341,7 @@ const PRODUCTS_DATA = [
 
 // Promotional Coupons
 const PROMO_COUPONS = {
+  "AYLLE10": { discountPercent: 10, minOrder: 1000, description: "10% Off on orders above Rs. 1000" },
   "ALLY10": { discountPercent: 10, minOrder: 1000, description: "10% Off on orders above Rs. 1000" },
   "WELCOME15": { discountPercent: 15, minOrder: 2500, description: "15% Welcome Discount for New Customers" },
   "GLAM20": { discountPercent: 20, minOrder: 5000, description: "20% Super Glam discount on bulk orders" }
