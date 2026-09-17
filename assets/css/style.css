@@ -10,11 +10,11 @@
   --primary-gradient: linear-gradient(135deg, #A855F7 0%, #EC4899 50%, #F43F5E 100%);
   --gold-gradient: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
   --dark-gradient: linear-gradient(145deg, #090312 0%, #1A0A2E 100%);
-  
+
   --secondary: #F43F5E;
   --secondary-hover: #E11D48;
   --secondary-light: rgba(244, 63, 94, 0.18);
-  
+
   --accent-gold: #FBBF24;
   --accent-purple: #C084FC;
   --success: #10B981;
@@ -30,7 +30,7 @@
   --bg-glass-dark: rgba(7, 3, 13, 0.95);
   --border-color: #2D144E;
   --border-light: #200E38;
-  
+
   --text-main: #FFFFFF;
   --text-muted: #BFAECD;
   --text-light: #7E6B94;
@@ -56,7 +56,9 @@
 }
 
 /* ================= Reset & Base ================= */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -88,7 +90,10 @@ a {
   transition: var(--transition-fast);
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
   font-family: inherit;
   border: none;
   outline: none;
@@ -211,6 +216,7 @@ button {
   font-weight: 800;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1.1;
   letter-spacing: -0.5px;
@@ -369,8 +375,8 @@ button {
   position: relative;
   padding: 3.5rem 0 4.5rem;
   background: radial-gradient(circle at 85% 20%, rgba(244, 63, 94, 0.18) 0%, transparent 45%),
-              radial-gradient(circle at 15% 80%, rgba(157, 78, 221, 0.2) 0%, transparent 50%),
-              linear-gradient(180deg, #0E051C 0%, #07030D 100%);
+    radial-gradient(circle at 15% 80%, rgba(157, 78, 221, 0.2) 0%, transparent 50%),
+    linear-gradient(180deg, #0E051C 0%, #07030D 100%);
   overflow: hidden;
   border-bottom: 1px solid var(--border-color);
 }
@@ -409,6 +415,7 @@ button {
 .hero-title .gradient-text {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -527,8 +534,15 @@ button {
 }
 
 @keyframes floatOrb {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
 }
 
 .hero-logo-frame img {
@@ -567,8 +581,13 @@ button {
 }
 
 @keyframes floatCard {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-8px); }
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-8px);
+  }
 }
 
 .floating-card .card-icon {
@@ -1059,7 +1078,8 @@ button {
   transition: transform var(--transition-fast);
 }
 
-.shade-dot:hover, .shade-dot.active {
+.shade-dot:hover,
+.shade-dot.active {
   transform: scale(1.25);
   box-shadow: 0 0 0 2px var(--secondary);
 }
@@ -1272,8 +1292,8 @@ button {
 .contact-strip-section {
   padding: 3.5rem 0;
   background: radial-gradient(circle at 10% 50%, rgba(157, 78, 221, 0.15) 0%, transparent 45%),
-              radial-gradient(circle at 90% 50%, rgba(244, 63, 94, 0.15) 0%, transparent 45%),
-              var(--bg-body);
+    radial-gradient(circle at 90% 50%, rgba(244, 63, 94, 0.15) 0%, transparent 45%),
+    var(--bg-body);
 }
 
 .contact-card-box {
@@ -1411,6 +1431,7 @@ button {
   font-weight: 800;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -2167,8 +2188,15 @@ button {
 }
 
 @keyframes slideInToast {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ================= Responsive Breakpoints ================= */
@@ -2178,25 +2206,32 @@ button {
     text-align: center;
     gap: 2.5rem;
   }
+
   .hero-desc {
     margin-left: auto;
     margin-right: auto;
   }
+
   .hero-actions {
     justify-content: center;
   }
+
   .hero-stats {
     justify-content: center;
   }
+
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .deal-banner-grid {
     grid-template-columns: 1fr;
   }
+
   .contact-card-box {
     grid-template-columns: 1fr;
   }
@@ -2206,47 +2241,60 @@ button {
   .top-bar {
     display: none;
   }
+
   .nav-menu {
     display: none;
   }
+
   .mobile-menu-toggle {
     display: block;
   }
+
   .header-search {
     display: none;
   }
+
   .hero-title {
     font-size: 2.35rem;
   }
+
   .hero-logo-frame {
     width: 290px;
     height: 290px;
   }
+
   .floating-card {
     display: none;
   }
+
   .flash-sale-card {
     flex-direction: column;
     text-align: center;
     gap: 1.5rem;
     padding: 2rem 1.5rem;
   }
+
   .quick-view-grid {
     grid-template-columns: 1fr;
     padding: 1.5rem;
   }
+
   .contact-links-grid {
     grid-template-columns: 1fr;
   }
+
   .features-grid {
     grid-template-columns: 1fr;
   }
+
   .footer-grid {
     grid-template-columns: 1fr;
   }
+
   .floating-whatsapp-btn span {
     display: none;
   }
+
   .floating-whatsapp-btn {
     padding: 0.85rem;
     border-radius: 50%;
