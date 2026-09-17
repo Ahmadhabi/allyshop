@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const WHATSAPP_PHONE = "923148604291"; // 03148604291 formatted for WhatsApp API
-  const STORE_EMAIL = "aylleshopofficial@gmail.com";
+  const STORE_EMAIL = "aylleshopoffical@gmail.com";
+  const STORE_EMAIL_ALT = "aylleshopofficial@gmail.com";
   const FREE_SHIPPING_THRESHOLD = 2999;
   const STANDARD_SHIPPING_FEE = 200;
 
@@ -63,12 +64,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkoutModalCloseBtn = document.getElementById("checkoutModalCloseBtn");
   const checkoutForm = document.getElementById("checkoutForm");
   const checkoutItemsSummary = document.getElementById("checkoutItemsSummary");
+  const submitOrderBtn = document.getElementById("submitOrderBtn");
 
   const successModal = document.getElementById("successModal");
   const successModalCloseBtn = document.getElementById("successModalCloseBtn");
   const successOrderId = document.getElementById("successOrderId");
   const successTotalAmount = document.getElementById("successTotalAmount");
   const successWhatsAppNotifyBtn = document.getElementById("successWhatsAppNotifyBtn");
+  const successDirectEmailBtn = document.getElementById("successDirectEmailBtn");
+  const emailNotificationBadge = document.getElementById("emailNotificationBadge");
+  const emailNotificationText = document.getElementById("emailNotificationText");
 
   const toastContainer = document.getElementById("toastContainer");
 
@@ -366,19 +371,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ================= 4. Direct WhatsApp Order Generator =================
-  function buildWhatsAppOrderMessage(customerInfo = null) {
-    if (state.cart.length === 0) return "";
+  function buildWhatsAppOrderMessage(customerInfo = null, itemsList = null) {
+    const items = itemsList || state.cart;
+    if (!items || items.length === 0) return "";
 
-    const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE;
-    const grandTotal = Math.max(0, subtotal - state.discountAmount + shipping);
+    const discount = (customerInfo && customerInfo.discountAmount !== undefined) ? customerInfo.discountAmount : state.discountAmount;
+    const grandTotal = (customerInfo && customerInfo.grandTotal) ? customerInfo.grandTotal : Math.max(0, subtotal - discount + shipping);
 
     let msg = `🌸 *NEW ORDER - AYLLE SHOP* 🌸\n`;
     msg += `----------------------------------------\n`;
     
     if (customerInfo) {
+      if (customerInfo.orderId) msg += `🔖 *Tracking ID:* ${customerInfo.orderId}\n`;
       msg += `👤 *Customer Name:* ${customerInfo.name}\n`;
       msg += `📞 *Phone Number:* ${customerInfo.phone}\n`;
+      if (customerInfo.email) msg += `📧 *Email:* ${customerInfo.email}\n`;
       msg += `📍 *City:* ${customerInfo.city}\n`;
       msg += `🏠 *Delivery Address:* ${customerInfo.address}\n`;
       if (customerInfo.notes) {
@@ -389,17 +398,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     msg += `🛍️ *ORDERED PRODUCTS:*\n`;
-    state.cart.forEach((item, i) => {
+    items.forEach((item, i) => {
       msg += `${i + 1}. *${item.name}*\n`;
-      msg += `   - Shade: ${item.shade}\n`;
+      msg += `   - Shade: ${item.shade || 'Standard'}\n`;
       msg += `   - Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
       msg += `   - Sub: Rs. ${(item.price * item.quantity).toLocaleString()}\n`;
     });
 
     msg += `----------------------------------------\n`;
     msg += `Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
-    if (state.appliedCoupon) {
-      msg += `Discount (${state.appliedCoupon.discountPercent}%): -Rs. ${state.discountAmount.toLocaleString()}\n`;
+    if (discount > 0) {
+      msg += `Discount: -Rs. ${discount.toLocaleString()}\n`;
     }
     msg += `Delivery Charges: ${shipping === 0 ? 'FREE' : 'Rs. ' + shipping}\n`;
     msg += `💰 *TOTAL PAYABLE: Rs. ${grandTotal.toLocaleString()}*\n`;
@@ -420,7 +429,77 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(url, "_blank");
   }
 
-  // ================= 5. Cash on Delivery (COD) Checkout =================
+  // ================= 5. Automated Email Notification Dispatch =================
+  async function sendOrderEmailNotification(orderData) {
+    const itemsFormatted = orderData.items.map((it, idx) => {
+      return `${idx + 1}. ${it.name} | Shade: ${it.shade || 'Standard'} | Qty: ${it.quantity} x Rs. ${it.price.toLocaleString()} = Rs. ${(it.price * it.quantity).toLocaleString()}`;
+    }).join('\n');
+
+    const payload = {
+      _subject: `🛍️ New Order #${orderData.orderId} - ${orderData.customer.name} (Rs. ${orderData.total.toLocaleString()})`,
+      _template: "table",
+      _captcha: "false",
+      _cc: STORE_EMAIL_ALT,
+      "Order ID": orderData.orderId,
+      "Order Date & Time": new Date().toLocaleString('en-PK', { dateStyle: 'medium', timeStyle: 'short' }),
+      "Customer Name": orderData.customer.name,
+      "Phone / WhatsApp": orderData.customer.phone,
+      "Customer Email": orderData.customer.email || "Not Provided",
+      "City": orderData.customer.city,
+      "Delivery Address": orderData.customer.address,
+      "Payment Method": orderData.customer.paymentMethod,
+      "Special Notes / Requests": orderData.customer.notes || "None",
+      "-------------------------": "----------------------------------------",
+      "Ordered Items Breakdown": itemsFormatted,
+      "Subtotal": `Rs. ${orderData.subtotal.toLocaleString()}`,
+      "Promo Discount": orderData.discount > 0 ? `- Rs. ${orderData.discount.toLocaleString()}` : "Rs. 0",
+      "Delivery Fee": orderData.shipping === 0 ? "FREE (Above Rs. 2,999)" : `Rs. ${orderData.shipping}`,
+      "GRAND TOTAL PAYABLE": `Rs. ${orderData.total.toLocaleString()}`,
+      "Store Contact": `03148604291 / ${STORE_EMAIL}`
+    };
+
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${STORE_EMAIL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const resData = await response.json();
+      console.log("FormSubmit email response:", resData);
+      return { success: true, data: resData };
+    } catch (error) {
+      console.warn("Automated email fetch error (fallback enabled):", error);
+      return { success: false, error };
+    }
+  }
+
+  function buildOrderMailtoUrl(orderData) {
+    const subject = encodeURIComponent(`Order Details #${orderData.orderId} - Aylle Shop`);
+    let body = `Hello Aylle Shop Team,\n\nOrder Confirmation #${orderData.orderId}\n\n`;
+    body += `Customer: ${orderData.customer.name}\n`;
+    body += `Phone/WhatsApp: ${orderData.customer.phone}\n`;
+    if (orderData.customer.email) body += `Email: ${orderData.customer.email}\n`;
+    body += `City: ${orderData.customer.city}\n`;
+    body += `Address: ${orderData.customer.address}\n`;
+    if (orderData.customer.notes) body += `Notes: ${orderData.customer.notes}\n`;
+    body += `Payment: ${orderData.customer.paymentMethod}\n\n`;
+    body += `--- ORDERED ITEMS ---\n`;
+    orderData.items.forEach((it, i) => {
+      body += `${i + 1}. ${it.name} (${it.shade || 'Standard'}) - ${it.quantity} x Rs. ${it.price.toLocaleString()}\n`;
+    });
+    body += `\nSubtotal: Rs. ${orderData.subtotal.toLocaleString()}\n`;
+    if (orderData.discount > 0) body += `Discount: -Rs. ${orderData.discount.toLocaleString()}\n`;
+    body += `Delivery: ${orderData.shipping === 0 ? 'FREE' : 'Rs. ' + orderData.shipping}\n`;
+    body += `Total Payable: Rs. ${orderData.total.toLocaleString()}\n`;
+
+    return `mailto:${STORE_EMAIL}?cc=${STORE_EMAIL_ALT}&subject=${subject}&body=${encodeURIComponent(body)}`;
+  }
+
+  // ================= 6. Cash on Delivery (COD) Checkout =================
   function openCheckoutModal() {
     if (state.cart.length === 0) {
       showToast("Please add cosmetics to your cart first!");
@@ -461,11 +540,12 @@ document.addEventListener("DOMContentLoaded", () => {
     checkoutModal.classList.add("active");
   }
 
-  function handleCheckoutSubmit(e) {
+  async function handleCheckoutSubmit(e) {
     e.preventDefault();
 
     const name = document.getElementById("orderName").value.trim();
     const phone = document.getElementById("orderPhone").value.trim();
+    const email = document.getElementById("orderEmail") ? document.getElementById("orderEmail").value.trim() : "";
     const city = document.getElementById("orderCity").value.trim();
     const address = document.getElementById("orderAddress").value.trim();
     const notes = document.getElementById("orderNotes") ? document.getElementById("orderNotes").value.trim() : "";
@@ -476,22 +556,35 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Disable button & indicate progress
+    if (submitOrderBtn) {
+      submitOrderBtn.disabled = true;
+      submitOrderBtn.innerHTML = `<i class="ph-bold ph-spinner spin-icon"></i> Placing Order & Sending Notification...`;
+    }
+
     const orderId = `AYLLE-${Math.floor(100000 + Math.random() * 900000)}`;
     const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE;
-    const grandTotal = Math.max(0, subtotal - state.discountAmount + shipping);
+    const discountAmount = state.discountAmount;
+    const grandTotal = Math.max(0, subtotal - discountAmount + shipping);
+    const orderedItems = [...state.cart];
 
-    const customerInfo = { name, phone, city, address, notes, paymentMethod, orderId, grandTotal };
+    const customerInfo = { name, phone, email, city, address, notes, paymentMethod, orderId, grandTotal, discountAmount };
 
-    // Save recent order
-    const orderHistory = JSON.parse(localStorage.getItem("aylle_orders") || localStorage.getItem("ally_orders") || "[]");
-    orderHistory.push({
+    const orderRecord = {
       orderId,
       date: new Date().toLocaleDateString(),
-      items: state.cart,
+      items: orderedItems,
       customer: customerInfo,
+      subtotal,
+      discount: discountAmount,
+      shipping,
       total: grandTotal
-    });
+    };
+
+    // Save recent order locally
+    const orderHistory = JSON.parse(localStorage.getItem("aylle_orders") || localStorage.getItem("ally_orders") || "[]");
+    orderHistory.push(orderRecord);
     localStorage.setItem("aylle_orders", JSON.stringify(orderHistory));
 
     // Clear Cart
@@ -501,23 +594,47 @@ document.addEventListener("DOMContentLoaded", () => {
     saveCart();
     updateCartUI();
 
+    // Send Real-time Email Notification
+    const emailResult = await sendOrderEmailNotification(orderRecord);
+
+    // Re-enable button
+    if (submitOrderBtn) {
+      submitOrderBtn.disabled = false;
+      submitOrderBtn.innerHTML = `<i class="ph-bold ph-check-circle"></i> Place Cash on Delivery Order`;
+    }
+
     checkoutModal.classList.remove("active");
 
-    // Show Success Modal
+    // Configure and Show Success Modal
     if (successOrderId) successOrderId.textContent = orderId;
     if (successTotalAmount) successTotalAmount.textContent = `Rs. ${grandTotal.toLocaleString()}`;
 
+    if (emailNotificationText) {
+      if (emailResult.success && emailResult.data && emailResult.data.message && emailResult.data.message.includes('Activation')) {
+        emailNotificationText.innerHTML = `Dispatched! First-time setup: Check Gmail inbox to click 'Activate Form'.`;
+      } else if (emailResult.success) {
+        emailNotificationText.innerHTML = `Notification sent to: <strong>${STORE_EMAIL}</strong>`;
+      } else {
+        emailNotificationText.innerHTML = `Order recorded! Direct email backup available below.`;
+      }
+    }
+
+    if (successDirectEmailBtn) {
+      successDirectEmailBtn.href = buildOrderMailtoUrl(orderRecord);
+    }
+
     if (successWhatsAppNotifyBtn) {
       successWhatsAppNotifyBtn.onclick = () => {
-        const encodedMsg = buildWhatsAppOrderMessage(customerInfo);
+        const encodedMsg = buildWhatsAppOrderMessage(customerInfo, orderedItems);
         window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodedMsg}`, "_blank");
       };
     }
 
     successModal.classList.add("active");
+    showToast(`🎉 Order <strong>${orderId}</strong> placed successfully!`);
   }
 
-  // ================= 6. Wishlist Management =================
+  // ================= 7. Wishlist Management =================
   function toggleWishlist(productId) {
     const product = state.products.find(p => p.id === productId);
     if (!product) return;
