@@ -1,6 +1,10 @@
 // Aylle Shop - Main E-Commerce Application Logic
 document.addEventListener("DOMContentLoaded", () => {
-  const initialProducts = JSON.parse(localStorage.getItem("aylle_products") || localStorage.getItem("ally_products")) || PRODUCTS_DATA;
+  // Clear any outdated products cache to ensure new user products are loaded
+  localStorage.removeItem("aylle_products");
+  localStorage.removeItem("ally_products");
+  
+  const initialProducts = PRODUCTS_DATA;
   let state = {
     products: initialProducts,
     filteredProducts: initialProducts,
@@ -121,17 +125,17 @@ document.addEventListener("DOMContentLoaded", () => {
     state.filteredProducts = items;
 
     if (productsCountLabel) {
-      productsCountLabel.textContent = `Showing ${items.length} cosmetic items`;
+      productsCountLabel.textContent = `Showing ${items.length} items`;
     }
 
     if (items.length === 0) {
       productsGrid.innerHTML = `
         <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
           <i class="ph ph-magnifying-glass" style="font-size: 3.5rem; color: #D6C2E6; margin-bottom: 1rem; display: block;"></i>
-          <h3 style="font-family: var(--font-heading); color: var(--text-main); font-size: 1.5rem; margin-bottom: 0.5rem;">No cosmetics found</h3>
-          <p>Try searching for lipstick, palette, foundation, primer or switch category.</p>
+          <h3 style="font-family: var(--font-heading); color: var(--text-main); font-size: 1.5rem; margin-bottom: 0.5rem;">No products found</h3>
+          <p>Try searching for handchain, handcuff, press-on nails or switch category.</p>
           <button class="btn-primary" style="margin-top: 1.25rem;" onclick="document.getElementById('searchInput').value=''; document.querySelector('.cat-btn[data-category=all]').click();">
-            View All Cosmetics
+            View All Products
           </button>
         </div>
       `;
@@ -171,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="shades-row">
               ${p.shades && p.shades.length > 1 ? p.shades.map((s, idx) => `
                 <span class="shade-dot ${idx === 0 ? 'active' : ''}" style="background-color: ${s.hex};" title="${s.name}" data-shade="${s.name}"></span>
-              `).join('') : '<span style="font-size:0.75rem; color:var(--text-light);">Standard Shade</span>'}
+              `).join('') : `<span style="font-size:0.75rem; color:var(--text-light);">${p.shades && p.shades[0] ? p.shades[0].name : 'Standard'}</span>`}
             </div>
 
             <div class="rating-row">
@@ -196,12 +200,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function formatCategory(cat) {
     const map = {
-      "lips": "💄 Lip Care & Color",
-      "eyes": "👁️ Eyes & Brows",
-      "face": "✨ Face & Glow",
-      "skincare": "🌸 Skincare & Prep",
-      "brushes-kits": "👑 Luxury Brushes & Kits",
-      "perfumes": "💎 Signature Fragrances"
+      "jewelry": "💍 Jewelry & Handchains",
+      "pressons": "💅 Luxury Press-On Nails",
+      "nail-paints": "🎨 Nail Paints & Sets",
+      "nails": "💅 Nails & Care"
     };
     return map[cat] || cat;
   }

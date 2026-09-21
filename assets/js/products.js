@@ -1,350 +1,138 @@
-// Aylle Shop - Cosmetic Products Catalog Database
+// Aylle Shop - Products Catalog Database
 const PRODUCTS_DATA = [
   {
     id: "aylle-01",
-    name: "Velvet Matte Liquid Lipstick",
-    category: "lips",
-    price: 1450,
-    originalPrice: 1950,
-    discount: "25% OFF",
+    name: "Black Floral Handchain",
+    category: "jewelry",
+    price: 650,
+    originalPrice: 850,
+    discount: "24% OFF",
     rating: 4.9,
-    reviewsCount: 128,
+    reviewsCount: 88,
     isBestSeller: true,
-    isNew: false,
+    isNew: true,
     isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?auto=format&fit=crop&w=800&q=80",
-    description: "Intense, long-lasting matte color with a velvety feather-light finish. Non-drying formula enriched with Vitamin E and Jojoba Oil for 16-hour transfer-proof wear.",
+    image: "assets/images/black-floral-handchain-clean.png",
+    secondaryImage: "assets/images/black-floral-handchain.png",
+    description: "Elegant gold-tone delicate handchain bracelet featuring exquisite black floral charm embellishments and an attached finger ring chain. Lightweight, anti-tarnish, and gives a royal graceful touch to any outfit or occasion.",
     shades: [
-      { name: "Royal Plum", hex: "#7E224F" },
-      { name: "Ruby Queen", hex: "#9E192D" },
-      { name: "Rose Velvet", hex: "#C75D7A" },
-      { name: "Nude Elegance", hex: "#B87D70" }
+      { name: "Black Floral & Gold", hex: "#1A1A1A" }
     ],
-    features: ["16-Hour Transfer Proof", "Enriched with Vitamin E", "100% Smudge Resistant", "Cruelty-Free"]
+    features: [
+      "Delicate Black Floral Charms",
+      "Premium Gold Plating",
+      "Adjustable Wrist & Ring Chain",
+      "Anti-Tarnish Long Lasting Luster"
+    ]
   },
   {
     id: "aylle-02",
-    name: "Sunset Romance 18-Shade Eyeshadow Palette",
-    category: "eyes",
-    price: 2850,
-    originalPrice: 3800,
-    discount: "25% OFF",
-    rating: 5.0,
-    reviewsCount: 94,
+    name: "Premium Quality Stainless Steel Handcuff",
+    category: "jewelry",
+    price: 450,
+    originalPrice: 650,
+    discount: "30% OFF",
+    rating: 4.8,
+    reviewsCount: 112,
     isBestSeller: true,
     isNew: false,
     isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
-    description: "An exquisite curation of 18 rich pigment shades ranging from buttery smooth mattes to ultra-reflective diamond shimmers and metallic duochromes.",
+    image: "assets/images/stainless-steel-handcuff-clean.png",
+    secondaryImage: "assets/images/stainless-steel-handcuff.png",
+    description: "Statement luxury open handcuff bracelet with intricate organic coral/branch cut-out filigree. Crafted from premium-grade stainless steel with a rich gleaming gold finish that won't fade or rust.",
     shades: [
-      { name: "Palette Standard", hex: "#D4738C" }
+      { name: "Luxe Gold", hex: "#D4AF37" }
     ],
-    features: ["Ultra-Blendable Formula", "Waterproof & Crease-Resistant", "High Color Payoff", "Mirror Included"]
+    features: [
+      "100% Stainless Steel Quality",
+      "Rust & Water Resistant",
+      "Adjustable Open Cuff Fit",
+      "Statement Coral Branch Design"
+    ]
   },
   {
     id: "aylle-03",
-    name: "Luminous Silk 24H Liquid Foundation",
-    category: "face",
-    price: 2650,
-    originalPrice: 3300,
-    discount: "20% OFF",
-    rating: 4.8,
-    reviewsCount: 156,
+    name: "Luxury Handmade Press-On Nails",
+    category: "pressons",
+    price: 550,
+    originalPrice: 800,
+    discount: "31% OFF",
+    rating: 5.0,
+    reviewsCount: 95,
     isBestSeller: true,
-    isNew: false,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1631730486784-5456119f69ae?auto=format&fit=crop&w=800&q=80",
-    description: "Weightless, breathable foundation that blurs pores and evens skin tone for a natural, lit-from-within glow with buildable medium-to-full coverage.",
+    isNew: true,
+    isFlashSale: true,
+    image: "assets/images/luxury-handmade-pressons-clean.png",
+    secondaryImage: "assets/images/luxury-handmade-pressons.png",
+    description: "Handcrafted luxury salon-grade press-on nails in royal wine red / maroon. Decorated with 3D blooming white flower artwork, genuine mini faux pearls, shimmering rhinestones, and French tip accents. Reusable & durable.",
     shades: [
-      { name: "Fair Ivory", hex: "#F3DAC5" },
-      { name: "Warm Beige", hex: "#E7C5A3" },
-      { name: "Golden Honey", hex: "#D2A277" },
-      { name: "Caramel Bronze", hex: "#B37E52" }
+      { name: "Royal Floral Maroon Set", hex: "#5E0E1B" }
     ],
-    features: ["24-Hour Hydrating Glow", "SPF 25 Sun Protection", "Oil-Free & Non-Comedogenic", "Sweat-Resistant"]
+    features: [
+      "100% Handmade Luxury Nail Art",
+      "3D Pearls & Floral Jewels",
+      "Reusable with Proper Care",
+      "Includes Application Kit"
+    ]
   },
   {
     id: "aylle-04",
-    name: "24K Gold Radiant Primer & Serum",
-    category: "skincare",
-    price: 1950,
-    originalPrice: 2500,
-    discount: "22% OFF",
+    name: "Wine Red Cat Eye Square Nails (With Application Kit)",
+    category: "pressons",
+    price: 350,
+    originalPrice: 500,
+    discount: "30% OFF",
     rating: 4.9,
-    reviewsCount: 87,
-    isBestSeller: false,
-    isNew: true,
+    reviewsCount: 146,
+    isBestSeller: true,
+    isNew: false,
     isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1608248597359-bb5835697672?auto=format&fit=crop&w=800&q=80",
-    description: "Infused with genuine 24-karat gold flakes and Hyaluronic Acid to hydrate, smooth skin texture, and lock makeup in place all day long.",
+    image: "assets/images/wine-red-cateye-nails-clean.png",
+    secondaryImage: "assets/images/wine-red-cateye-nails.png",
+    description: "Deep glossy wine-red magnetic cat-eye press-on nails with sleek square shape. Features mesmerizing velvet cat-eye light reflection. Comes complete with full application kit (adhesive tabs, nail file & prep pad).",
     shades: [
-      { name: "Pure Gold", hex: "#D4AF37" }
+      { name: "Wine Red Cat Eye Set", hex: "#670318" }
     ],
-    features: ["Instant Pore Blurring", "Deep 48H Hydration", "Preps & Extends Makeup", "Anti-Aging Peptides"]
+    features: [
+      "Glossy Magnetic Cat-Eye Glow",
+      "Full Application Kit Included",
+      "Instant 5-Minute Salon Nails",
+      "Comfortable Short Square Fit"
+    ]
   },
   {
     id: "aylle-05",
-    name: "10-Piece Luxury Makeup Brush Set & Pouch",
-    category: "brushes-kits",
-    price: 3200,
-    originalPrice: 4500,
-    discount: "28% OFF",
+    name: "Miss Rose Peel Off Nail Polish (Pack of 12)",
+    category: "nail-paints",
+    price: 899,
+    originalPrice: 1350,
+    discount: "33% OFF",
     rating: 4.9,
-    reviewsCount: 210,
-    isBestSeller: true,
-    isNew: false,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
-    description: "Ultra-soft, cruelty-free synthetic bristles with ergonomic violet-gold metallic handles. Includes all essentials for powder, foundation, contour, and eye looks.",
-    shades: [
-      { name: "Aylle Violet & Gold", hex: "#6C2EB9" },
-      { name: "Rose Gold Luxe", hex: "#B76E79" }
-    ],
-    features: ["Dense Fluffy Bristles", "Shed-Free Guarantee", "Includes Velvet Travel Bag", "Easy to Clean"]
-  },
-  {
-    id: "aylle-06",
-    name: "Aylle Signature Eau De Parfum (100ml)",
-    category: "perfumes",
-    price: 3950,
-    originalPrice: 5200,
-    discount: "24% OFF",
-    rating: 5.0,
-    reviewsCount: 142,
+    reviewsCount: 230,
     isBestSeller: true,
     isNew: true,
     isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",
-    description: "An enchanting luxury fragrance blending Moroccan Jasmine, Pink Peony, Sweet Vanilla orchid, and rich Amberwood for an unforgettable signature trail.",
+    image: "assets/images/pack-12-nail-paints-clean.png",
+    secondaryImage: "assets/images/pack-12-nail-paints.png",
+    description: "Value pack of 12 authentic Miss Rose peel-off nail polishes in vibrant everyday and party shades (shimmer blues, metallic copper, rich burgundy, ruby pink, emerald & neutral nudes). Odorless, quick-drying, and peels off effortlessly without acetone.",
     shades: [
-      { name: "Signature 100ml", hex: "#8A3AB9" }
+      { name: "12 Mixed Color Pack", hex: "#B83253" }
     ],
-    features: ["Long-Lasting 18+ Hours", "French Perfume Oils", "Luxury Glass Crystal Bottle", "Gift Ready Packaging"]
-  },
-  {
-    id: "aylle-07",
-    name: "Baked Starlight Highlighter & Glow Powder",
-    category: "face",
-    price: 1650,
-    originalPrice: 2200,
-    discount: "25% OFF",
-    rating: 4.8,
-    reviewsCount: 79,
-    isBestSeller: false,
-    isNew: false,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
-    description: "Micro-fine pearls deliver a seamless, blinding glass-skin finish without accentuating texture or fine lines.",
-    shades: [
-      { name: "Champagne Glow", hex: "#F7E7CE" },
-      { name: "Rose Quartz", hex: "#E8A3B8" },
-      { name: "Bronze Goddess", hex: "#C68B59" }
-    ],
-    features: ["Silky Baked Texture", "Blinding Multi-Dimensional Glow", "Zero Chunky Glitter", "All Day Wear"]
-  },
-  {
-    id: "aylle-08",
-    name: "Dramatic 3D Volume & Curl Mascara",
-    category: "eyes",
-    price: 1350,
-    originalPrice: 1750,
-    discount: "22% OFF",
-    rating: 4.9,
-    reviewsCount: 165,
-    isBestSeller: true,
-    isNew: false,
-    isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
-    description: "Achieve false lash effect instantly. Hourglass brush coats every lash from root to tip without clumping, flaking, or smudging.",
-    shades: [
-      { name: "Carbon Black", hex: "#000000" },
-      { name: "Deep Espresso", hex: "#3B2219" }
-    ],
-    features: ["10x Instant Lash Volume", "100% Smudge & Tear Proof", "Ophthalmologist Tested", "Easy Removal"]
-  },
-  {
-    id: "aylle-09",
-    name: "Plumping Crystal Gloss & Lip Oil",
-    category: "lips",
-    price: 1250,
-    originalPrice: 1600,
-    discount: "21% OFF",
-    rating: 4.7,
-    reviewsCount: 92,
-    isBestSeller: false,
-    isNew: true,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1625093742435-6fa192b6fb10?auto=format&fit=crop&w=800&q=80",
-    description: "High-shine glassy gloss with gentle peptide plumping complex and Rosehip seed oil. Leaves lips pillow-soft, non-sticky, and visibly fuller.",
-    shades: [
-      { name: "Clear Diamond", hex: "#F3EFF7" },
-      { name: "Pink Frosting", hex: "#FCA1BC" },
-      { name: "Berry Sparkle", hex: "#A83861" }
-    ],
-    features: ["Instant Plumping Effect", "Non-Sticky Glaze Formula", "Deep Nourishing Oils", "High Mirror Shine"]
-  },
-  {
-    id: "aylle-10",
-    name: "Petal Soft Velvet Powder Blush Trio",
-    category: "face",
-    price: 1750,
-    originalPrice: 2300,
-    discount: "23% OFF",
-    rating: 4.8,
-    reviewsCount: 68,
-    isBestSeller: false,
-    isNew: false,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
-    description: "Three harmonious blush shades in matte and luminous finishes to sculpt, warm, and add a youthful flush to cheeks.",
-    shades: [
-      { name: "Sweet Coral", hex: "#F08080" },
-      { name: "Berry Blossom", hex: "#C05280" },
-      { name: "Peachy Sunset", hex: "#FF8C69" }
-    ],
-    features: ["Buildable Color Intensity", "Silky Micronized Powder", "Soft Focus Blurring", "Long Wearing"]
-  },
-  {
-    id: "aylle-11",
-    name: "Precision Waterproof Gel Eyeliner Pen",
-    category: "eyes",
-    price: 950,
-    originalPrice: 1300,
-    discount: "26% OFF",
-    rating: 4.9,
-    reviewsCount: 114,
-    isBestSeller: true,
-    isNew: false,
-    isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
-    description: "Ultra-fine 0.1mm flexible brush tip for razor-sharp wings and tightlining. Quick-drying waterproof jet black ink that doesn't smudge.",
-    shades: [
-      { name: "Midnight Black", hex: "#000000" },
-      { name: "Chocolate Matte", hex: "#4A2E18" }
-    ],
-    features: ["0.1mm Ultra Fine Tip", "24H Waterproof & Sweatproof", "Fade-Proof Ink Flow", "Quick 3-Sec Dry"]
-  },
-  {
-    id: "aylle-12",
-    name: "Hydra-Mist Rose Glow Setting Spray",
-    category: "skincare",
-    price: 1550,
-    originalPrice: 2000,
-    discount: "22% OFF",
-    rating: 4.8,
-    reviewsCount: 78,
-    isBestSeller: false,
-    isNew: true,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1608248597359-bb5835697672?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
-    description: "Ultra-fine micro-mist with Organic Rose Water, Niacinamide, and Aloe Vera. Melts powder into skin and sets makeup for up to 16 hours.",
-    shades: [
-      { name: "Dewy Rose (120ml)", hex: "#F3A9BB" }
-    ],
-    features: ["Continuous Micro-Mist Spray", "16H Makeup Lock", "Refreshes & Hydrates", "Anti-Pollution Shield"]
-  },
-  {
-    id: "aylle-13",
-    name: "Bridal Glam All-In-One Makeup Master Kit",
-    category: "brushes-kits",
-    price: 7999,
-    originalPrice: 11500,
-    discount: "30% OFF",
-    rating: 5.0,
-    reviewsCount: 312,
-    isBestSeller: true,
-    isNew: false,
-    isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
-    description: "The complete luxury bridal & party makeup box: 18-Shade Palette, Foundation, 2 Liquid Lipsticks, Mascara, Highlighter, Brush Set, and Aylle Beauty Sponge.",
-    shades: [
-      { name: "Deluxe Bridal Box", hex: "#7B1FA2" }
-    ],
-    features: ["Complete 7-Piece Full Size Kit", "Save 30% on Bundle", "Free Luxury Gift Box", "Guaranteed 100% Authentic"]
-  },
-  {
-    id: "aylle-14",
-    name: "Melt & Glow Cleansing Balm & Makeup Remover",
-    category: "skincare",
-    price: 1850,
-    originalPrice: 2400,
-    discount: "23% OFF",
-    rating: 4.9,
-    reviewsCount: 89,
-    isBestSeller: false,
-    isNew: true,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80",
-    description: "Sherbet-like cleansing balm transforms into silky oil, effortlessly melting away waterproof mascara, foundation, and sunscreen without stripping skin moisture.",
-    shades: [
-      { name: "Lavender & Chamomile (100g)", hex: "#9575CD" }
-    ],
-    features: ["Melts Stubborn Waterproof Makeup", "Leaves Skin Nourished & Soft", "No Greasy Residue", "Free of Mineral Oils"]
-  },
-  {
-    id: "aylle-15",
-    name: "Sculpt & Tame 36H Micro Brow Pomade & Spoolie",
-    category: "eyes",
-    price: 1150,
-    originalPrice: 1500,
-    discount: "23% OFF",
-    rating: 4.8,
-    reviewsCount: 104,
-    isBestSeller: false,
-    isNew: false,
-    isFlashSale: false,
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=800&q=80",
-    description: "Creamy, smudge-free formula creates hair-like strokes to define, fill, and lock brows in place with a natural laminated finish.",
-    shades: [
-      { name: "Dark Brown", hex: "#3A2618" },
-      { name: "Medium Brown", hex: "#5C3E26" },
-      { name: "Soft Charcoal", hex: "#2B2B2B" }
-    ],
-    features: ["Dual-Ended with Angled Brush", "Waterproof 36H Hold", "Buildable Natural Definition", "No Flaking or Smudge"]
-  },
-  {
-    id: "aylle-16",
-    name: "Rose Gold Velvet Shimmer Body & Hair Mist",
-    category: "perfumes",
-    price: 2150,
-    originalPrice: 2800,
-    discount: "23% OFF",
-    rating: 4.9,
-    reviewsCount: 135,
-    isBestSeller: false,
-    isNew: true,
-    isFlashSale: true,
-    image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",
-    secondaryImage: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80",
-    description: "Infused with fine diamond shimmer dust and intoxicating notes of Turkish Rose, Vanilla Bean, and Warm Cashmere. Leaves skin radiant and smelling divine.",
-    shades: [
-      { name: "Rose Gold Shimmer (150ml)", hex: "#B76E79" }
-    ],
-    features: ["Diamond Shimmer Glow", "12+ Hour Fragrance", "Non-Sticky Moisturizing Mist", "For Body & Hair"]
+    features: [
+      "Pack of 12 Assorted Shades",
+      "Easy Peel-Off Formulation",
+      "No Acetone / Remover Needed",
+      "Quick Dry & High Gloss Finish"
+    ]
   }
 ];
 
 // Promotional Coupons
 const PROMO_COUPONS = {
-  "AYLLE10": { discountPercent: 10, minOrder: 1000, description: "10% Off on orders above Rs. 1000" },
-  "ALLY10": { discountPercent: 10, minOrder: 1000, description: "10% Off on orders above Rs. 1000" },
-  "WELCOME15": { discountPercent: 15, minOrder: 2500, description: "15% Welcome Discount for New Customers" },
-  "GLAM20": { discountPercent: 20, minOrder: 5000, description: "20% Super Glam discount on bulk orders" }
+  "AYLLE10": { discountPercent: 10, minOrder: 500, description: "10% Off on orders above Rs. 500" },
+  "ALLY10": { discountPercent: 10, minOrder: 500, description: "10% Off on orders above Rs. 500" },
+  "WELCOME15": { discountPercent: 15, minOrder: 1000, description: "15% Welcome Discount for New Customers" },
+  "GLAM20": { discountPercent: 20, minOrder: 2000, description: "20% Super Glam discount on bundle orders" }
 };
 
 // Customer Reviews Data
@@ -354,31 +142,31 @@ const TESTIMONIALS_DATA = [
     city: "Lahore",
     rating: 5,
     date: "2 days ago",
-    comment: "Aylle Shop ki Velvet Matte Lipstick and Sunset palette bohot zabardast hain! 100% original cosmetics, packaging bohat classy thi aur delivery 2 din me mil gayi.",
-    product: "Velvet Matte Liquid Lipstick"
+    comment: "Black Floral Handchain bohot khoobsurat ha! Same jesa picture me tha wesa hi aya. Finishing bohot pyari hai aur delivery sirf 2 din me mil gayi.",
+    product: "Black Floral Handchain"
   },
   {
     name: "Fatima Noor",
     city: "Karachi",
     rating: 5,
-    date: "5 days ago",
-    comment: "WhatsApp par order kiya tha, WhatsApp number 03148604291 par direct confirmation mili. 24K Gold Primer is magic on skin! Highly recommended store.",
-    product: "24K Gold Radiant Primer"
+    date: "4 days ago",
+    comment: "Luxury handmade pressons meri wedding function k liye perfect rahe! 3D flowers aur pearls ki quality top notch ha. Highly recommended!",
+    product: "Luxury Handmade Press-On Nails"
   },
   {
     name: "Zainab Khan",
     city: "Islamabad",
     rating: 5,
     date: "1 week ago",
-    comment: "Bridal Master Kit meri sister ki wedding ke liye mangwai thi. Sub products premium quality hain, foundation and brushes are top notch!",
-    product: "Bridal Glam All-In-One Kit"
+    comment: "Stainless steel handcuff ka design bohot unique aur classy ha. Gold polish bohat bright hai aur bilkul tarnish nahi hota.",
+    product: "Premium Quality Stainless Steel Handcuff"
   },
   {
     name: "Mariam Tariq",
     city: "Faisalabad",
     rating: 5,
     date: "2 weeks ago",
-    comment: "Aylle Eau de Parfum fragrance is so long lasting! Pure original fragrance and fast cash on delivery. Will definitely buy again.",
-    product: "Aylle Signature Eau De Parfum"
+    comment: "Miss Rose 12 nail paints pack bohot affordable aur best deal hai! Peel off formula bohot easy ha lagana aur utarna.",
+    product: "Miss Rose Peel Off Nail Polish (Pack of 12)"
   }
 ];
