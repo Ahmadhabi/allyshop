@@ -10,7 +10,7 @@ const PRODUCTS_DATA = [
     rating: 4.9,
     reviewsCount: 88,
     isBestSeller: true,
-    isNew: true,
+    isNew: false,
     isFlashSale: true,
     image: "assets/images/black-floral-handchain-clean.png",
     secondaryImage: "assets/images/black-floral-handchain.png",
@@ -60,7 +60,7 @@ const PRODUCTS_DATA = [
     rating: 5.0,
     reviewsCount: 95,
     isBestSeller: true,
-    isNew: true,
+    isNew: false,
     isFlashSale: true,
     image: "assets/images/luxury-handmade-pressons-clean.png",
     secondaryImage: "assets/images/luxury-handmade-pressons.png",
@@ -110,7 +110,7 @@ const PRODUCTS_DATA = [
     rating: 4.9,
     reviewsCount: 230,
     isBestSeller: true,
-    isNew: true,
+    isNew: false,
     isFlashSale: true,
     image: "assets/images/pack-12-nail-paints-clean.png",
     secondaryImage: "assets/images/pack-12-nail-paints.png",
@@ -123,6 +123,106 @@ const PRODUCTS_DATA = [
       "Easy Peel-Off Formulation",
       "No Acetone / Remover Needed",
       "Quick Dry & High Gloss Finish"
+    ]
+  },
+  {
+    id: "aylle-06",
+    name: "Silver Butterfly Crystal Stud Earrings",
+    category: "jewelry",
+    price: 150,
+    originalPrice: 250,
+    discount: "40% OFF",
+    rating: 4.8,
+    reviewsCount: 76,
+    isBestSeller: false,
+    isNew: true,
+    isFlashSale: true,
+    image: "assets/images/silver-butterfly-earrings-clean.png",
+    secondaryImage: "assets/images/silver-butterfly-earrings.png",
+    description: "Dainty Hansweet silver-tone butterfly stud earrings encrusted with sparkling faceted crystal stones. Lightweight, hypoallergenic, and perfect for everyday elegance or festive wear.",
+    shades: [
+      { name: "Silver Crystal", hex: "#C0C0C0" }
+    ],
+    features: [
+      "Sparkling Crystal Embellishments",
+      "Lightweight & Comfortable",
+      "Hypoallergenic Earring Posts",
+      "Delicate Butterfly Silhouette"
+    ]
+  },
+  {
+    id: "aylle-07",
+    name: "Silver Bow Ribbon Metallic Stud Earrings",
+    category: "jewelry",
+    price: 250,
+    originalPrice: 400,
+    discount: "37% OFF",
+    rating: 4.9,
+    reviewsCount: 84,
+    isBestSeller: true,
+    isNew: true,
+    isFlashSale: true,
+    image: "assets/images/silver-bow-earrings-clean.png",
+    secondaryImage: "assets/images/silver-bow-and-blossom.png",
+    description: "Trendy JBG silver metallic ribbon bow stud earrings featuring textured reflective chrome finish. Eye-catching chic aesthetic that elevates any casual or formal outfit.",
+    shades: [
+      { name: "Metallic Chrome Silver", hex: "#E0E0E0" }
+    ],
+    features: [
+      "High-Shine Chrome Metallic Finish",
+      "Textured Ribbon Bow Design",
+      "Lightweight & Secure Fit",
+      "Coquette Aesthetic Trend"
+    ]
+  },
+  {
+    id: "aylle-08",
+    name: "Blossom Minimal & Pretty 3-Pair Earring Set",
+    category: "jewelry",
+    price: 299,
+    originalPrice: 450,
+    discount: "33% OFF",
+    rating: 5.0,
+    reviewsCount: 118,
+    isBestSeller: true,
+    isNew: true,
+    isFlashSale: true,
+    image: "assets/images/blossom-earrings-set-clean.png",
+    secondaryImage: "assets/images/silver-bow-and-blossom.png",
+    description: "3-in-1 combo card featuring 3 gorgeous pairs of earrings: classic faux pearl studs, sparkling crystal solitaire studs, and pearl wreath bow drop earrings. Incredible value pack for multiple styling options.",
+    shades: [
+      { name: "3-Pair Combo Set", hex: "#F5F5F5" }
+    ],
+    features: [
+      "Includes 3 Gorgeous Pairs",
+      "Classic Pearl + Solitaire + Wreath Bow",
+      "Mix & Match Everyday Styling",
+      "Great Gift Item"
+    ]
+  },
+  {
+    id: "aylle-09",
+    name: "Customized Reseller Deal (21 Products Mega Bundle)",
+    category: "deals",
+    price: 2800,
+    originalPrice: 4200,
+    discount: "33% OFF",
+    rating: 5.0,
+    reviewsCount: 310,
+    isBestSeller: true,
+    isNew: true,
+    isFlashSale: true,
+    image: "assets/images/customized-reseller-deal-clean.png",
+    secondaryImage: "assets/images/customized-reseller-deal.png",
+    description: "Mega 21-in-1 complete beauty & cosmetics bundle: includes liquid lipsticks, lip glosses, lip liners, eyebrow pencil, Creamy Cheeks blush, Fit Me compact powder, foundation tube, capsule mascara, glitter liner, Kuromi character gloss, highlighter pot, and more! Unbeatable bulk reseller deal.",
+    shades: [
+      { name: "21-Product Full Deal", hex: "#C71585" }
+    ],
+    features: [
+      "Complete 21-Piece Makeup Kit",
+      "Huge Reseller Value Bundle",
+      "Lipsticks, Mascara, Blush & Liners",
+      "Massive Savings Deal"
     ]
   }
 ];
@@ -158,15 +258,15 @@ const TESTIMONIALS_DATA = [
     city: "Islamabad",
     rating: 5,
     date: "1 week ago",
-    comment: "Stainless steel handcuff ka design bohot unique aur classy ha. Gold polish bohat bright hai aur bilkul tarnish nahi hota.",
-    product: "Premium Quality Stainless Steel Handcuff"
+    comment: "Silver Bow earrings and Blossom 3-pair set bohot cute hain! Quality bohat achi hai aur price bhi reasonable hai.",
+    product: "Silver Bow & Blossom Earring Set"
   },
   {
-    name: "Mariam Tariq",
-    city: "Faisalabad",
+    name: "Hina Riaz",
+    city: "Rawalpindi",
     rating: 5,
-    date: "2 weeks ago",
-    comment: "Miss Rose 12 nail paints pack bohot affordable aur best deal hai! Peel off formula bohot easy ha lagana aur utarna.",
-    product: "Miss Rose Peel Off Nail Polish (Pack of 12)"
+    date: "3 days ago",
+    comment: "Customized 21 products deal mangwai thi, pure Rs. 2800 me itna sara makeup mil gaya! Saari items 100% original aur zabardast hain.",
+    product: "Customized Reseller Deal (21 Products)"
   }
 ];
