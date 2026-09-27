@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
       if (cartSubtotalEl) cartSubtotalEl.textContent = "Rs. 0";
       if (cartDiscountRow) cartDiscountRow.style.display = "none";
-      if (cartShippingEl) cartShippingEl.textContent = "Rs. 0";
+      if (cartShippingEl) cartShippingEl.textContent = "Calculated at Checkout";
       if (cartGrandTotalEl) cartGrandTotalEl.textContent = "Rs. 0";
       if (shippingProgressFill) shippingProgressFill.style.width = "0%";
       if (shippingProgressText) shippingProgressText.innerHTML = `Add Rs. ${FREE_SHIPPING_THRESHOLD.toLocaleString()} for <strong>FREE Delivery</strong> across Pakistan!`;
@@ -324,12 +324,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cartDiscountRow) cartDiscountRow.style.display = "none";
     }
 
-    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : (subtotal > 0 ? STANDARD_SHIPPING_FEE : 0);
-    const grandTotal = Math.max(0, subtotal - discount + shipping);
+    const cartTotal = Math.max(0, subtotal - discount);
 
     if (cartSubtotalEl) cartSubtotalEl.textContent = `Rs. ${subtotal.toLocaleString()}`;
-    if (cartShippingEl) cartShippingEl.textContent = shipping === 0 ? "FREE" : `Rs. ${shipping}`;
-    if (cartGrandTotalEl) cartGrandTotalEl.textContent = `Rs. ${grandTotal.toLocaleString()}`;
+    if (cartShippingEl) {
+      if (subtotal >= FREE_SHIPPING_THRESHOLD) {
+        cartShippingEl.innerHTML = `<span style="color:#25D366; font-weight:700;">🎉 FREE Delivery</span>`;
+      } else {
+        cartShippingEl.innerHTML = `<span style="color:var(--text-muted); font-size:0.82rem;">Calculated at COD / WhatsApp</span>`;
+      }
+    }
+    if (cartGrandTotalEl) cartGrandTotalEl.textContent = `Rs. ${cartTotal.toLocaleString()}`;
 
     // Free Shipping Progress
     if (shippingProgressFill && shippingProgressText) {
@@ -378,14 +383,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!items || items.length === 0) return "";
 
     const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE;
     const discount = (customerInfo && customerInfo.discountAmount !== undefined) ? customerInfo.discountAmount : state.discountAmount;
-    const grandTotal = (customerInfo && customerInfo.grandTotal) ? customerInfo.grandTotal : Math.max(0, subtotal - discount + shipping);
 
     let msg = `🌸 *NEW ORDER - AYLLE SHOP* 🌸\n`;
     msg += `----------------------------------------\n`;
     
     if (customerInfo) {
+      const shipping = customerInfo.shipping !== undefined ? customerInfo.shipping : (subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : STANDARD_SHIPPING_FEE);
+      const grandTotal = (customerInfo && customerInfo.grandTotal) ? customerInfo.grandTotal : Math.max(0, subtotal - discount + shipping);
+
       if (customerInfo.orderId) msg += `🔖 *Tracking ID:* ${customerInfo.orderId}\n`;
       msg += `👤 *Customer Name:* ${customerInfo.name}\n`;
       msg += `📞 *Phone Number:* ${customerInfo.phone}\n`;
@@ -397,25 +403,50 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       msg += `💳 *Payment Method:* ${customerInfo.paymentMethod}\n`;
       msg += `----------------------------------------\n`;
-    }
+      
+      msg += `🛍️ *ORDERED PRODUCTS:*\n`;
+      items.forEach((item, i) => {
+        msg += `${i + 1}. *${item.name}*\n`;
+        msg += `   - Shade: ${item.shade || 'Standard'}\n`;
+        msg += `   - Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
+        msg += `   - Sub: Rs. ${(item.price * item.quantity).toLocaleString()}\n`;
+      });
 
-    msg += `🛍️ *ORDERED PRODUCTS:*\n`;
-    items.forEach((item, i) => {
-      msg += `${i + 1}. *${item.name}*\n`;
-      msg += `   - Shade: ${item.shade || 'Standard'}\n`;
-      msg += `   - Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
-      msg += `   - Sub: Rs. ${(item.price * item.quantity).toLocaleString()}\n`;
-    });
+      msg += `----------------------------------------\n`;
+      msg += `Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
+      if (discount > 0) {
+        msg += `Discount: -Rs. ${discount.toLocaleString()}\n`;
+      }
+      msg += `Delivery Charges: ${shipping === 0 ? 'FREE' : 'Rs. ' + shipping}\n`;
+      msg += `💰 *TOTAL PAYABLE: Rs. ${grandTotal.toLocaleString()}*\n`;
+      msg += `----------------------------------------\n`;
+      msg += `Please confirm my order. Thank you! ✨`;
+    } else {
+      const productTotal = Math.max(0, subtotal - discount);
 
-    msg += `----------------------------------------\n`;
-    msg += `Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
-    if (discount > 0) {
-      msg += `Discount: -Rs. ${discount.toLocaleString()}\n`;
+      msg += `🛍️ *ORDER INQUIRY / CART ITEMS:*\n`;
+      items.forEach((item, i) => {
+        msg += `${i + 1}. *${item.name}*\n`;
+        msg += `   - Shade: ${item.shade || 'Standard'}\n`;
+        msg += `   - Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
+        msg += `   - Sub: Rs. ${(item.price * item.quantity).toLocaleString()}\n`;
+      });
+
+      msg += `----------------------------------------\n`;
+      msg += `Items Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
+      if (discount > 0) {
+        msg += `Discount: -Rs. ${discount.toLocaleString()}\n`;
+      }
+      msg += `Product Total: *Rs. ${productTotal.toLocaleString()}*\n`;
+      msg += `Delivery Charges: _(To be confirmed on WhatsApp based on city / Free above Rs. 2,999)_\n`;
+      msg += `----------------------------------------\n`;
+      msg += `*My Details:*\n`;
+      msg += `Name: \n`;
+      msg += `City: \n`;
+      msg += `Address: \n`;
+      msg += `----------------------------------------\n`;
+      msg += `Please confirm availability and delivery charges. Thank you! ✨`;
     }
-    msg += `Delivery Charges: ${shipping === 0 ? 'FREE' : 'Rs. ' + shipping}\n`;
-    msg += `💰 *TOTAL PAYABLE: Rs. ${grandTotal.toLocaleString()}*\n`;
-    msg += `----------------------------------------\n`;
-    msg += `Please confirm my order. Thank you! ✨`;
 
     return encodeURIComponent(msg);
   }
@@ -516,23 +547,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (checkoutItemsSummary) {
       checkoutItemsSummary.innerHTML = `
-        <div style="background: var(--primary-light); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
-          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:0.4rem;">
-            <span>Items in Bag (${state.cart.length}):</span>
+        <div style="background: rgba(108, 46, 185, 0.12); border: 1px solid rgba(108, 46, 185, 0.25); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+          <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:0.4rem; color:var(--text-main);">
+            <span>Items Subtotal (${state.cart.length}):</span>
             <span>Rs. ${subtotal.toLocaleString()}</span>
           </div>
           ${state.discountAmount > 0 ? `
-            <div style="display:flex; justify-content:space-between; color:var(--secondary); font-size:0.85rem; margin-bottom:0.25rem;">
-              <span>Discount:</span>
+            <div style="display:flex; justify-content:space-between; color:var(--secondary); font-size:0.85rem; margin-bottom:0.35rem; font-weight:600;">
+              <span>Promo Discount:</span>
               <span>- Rs. ${state.discountAmount.toLocaleString()}</span>
             </div>
           ` : ''}
-          <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-muted); margin-bottom:0.4rem;">
-            <span>Delivery:</span>
-            <span>${shipping === 0 ? 'FREE' : 'Rs. ' + shipping}</span>
+          <div style="display:flex; justify-content:space-between; font-size:0.88rem; color:var(--text-muted); margin-bottom:0.4rem;">
+            <span>🚚 Delivery Charges (COD):</span>
+            <span style="font-weight:700; color:${shipping === 0 ? '#25D366' : 'var(--text-main)'};">
+              ${shipping === 0 ? 'FREE (Above Rs. 2,999)' : 'Rs. ' + shipping}
+            </span>
           </div>
-          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem; color:var(--primary); border-top:1px solid rgba(108,46,185,0.2); padding-top:0.4rem;">
-            <span>Grand Total:</span>
+          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.15rem; color:#A855F7; border-top:1px solid rgba(255,255,255,0.1); padding-top:0.45rem; margin-top:0.3rem;">
+            <span>Total Payable on Delivery:</span>
             <span>Rs. ${grandTotal.toLocaleString()}</span>
           </div>
         </div>
@@ -571,7 +604,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const grandTotal = Math.max(0, subtotal - discountAmount + shipping);
     const orderedItems = [...state.cart];
 
-    const customerInfo = { name, phone, email, city, address, notes, paymentMethod, orderId, grandTotal, discountAmount };
+    const customerInfo = { name, phone, email, city, address, notes, paymentMethod, orderId, grandTotal, discountAmount, shipping };
 
     const orderRecord = {
       orderId,
@@ -795,7 +828,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     document.getElementById("modalBuyWhatsAppBtn").onclick = () => {
-      const msg = `Hello Aylle Shop! I want to order:\nProduct: ${product.name}\nShade: ${state.selectedShadeForModal}\nQty: ${modalQty}\nPrice: Rs. ${(product.price * modalQty).toLocaleString()}`;
+      const msg = `Hello Aylle Shop! I want to order:\nProduct: ${product.name}\nShade: ${state.selectedShadeForModal}\nQty: ${modalQty}\nPrice: Rs. ${(product.price * modalQty).toLocaleString()}\n\n(Delivery charges and address details will be confirmed directly on WhatsApp chat). Thank you!`;
       window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
     };
 
